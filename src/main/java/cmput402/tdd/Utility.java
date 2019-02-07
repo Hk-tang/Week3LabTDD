@@ -19,7 +19,7 @@ public class Utility {
 	}
 	
 	public HashMap<String, Integer>  findTopScorer(Search search){
-		
+
 		return null;
 	}
 	
