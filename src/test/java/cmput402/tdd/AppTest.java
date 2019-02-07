@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 public class AppTest 
     extends TestCase
 {
-    Utility util = new Utility();
+    private Utility util = new Utility();
     /**
      * Create the test case
      *
@@ -37,8 +37,7 @@ public class AppTest
         return new TestSuite( AppTest.class );
     }
 
-    public void testCountAverageScore() {
-        Search mockSearch = mock(Search.class);
+    private HashMap<String, ArrayList<Integer>> createFakeMap() {
         HashMap<String, ArrayList<Integer>> fakeMap = new HashMap<String, ArrayList<Integer>>();
         ArrayList<Integer> messi = new ArrayList<Integer>();
         messi.add(100);
@@ -53,7 +52,13 @@ public class AppTest
         fakeMap.put("ronaldo", ronaldo);
         fakeMap.put("neymar", neymar);
 
-        when(mockSearch.returnAll()).thenReturn(fakeMap);
+        return fakeMap;
+    }
+
+    public void testCountAverageScore() {
+        Search mockSearch = mock(Search.class);
+
+        when(mockSearch.returnAll()).thenReturn(createFakeMap());
 
         HashMap<String, Float> results = util.countAverageScore(mockSearch);
 
@@ -64,21 +69,8 @@ public class AppTest
 
     public void testFindTopScorer() {
         Search mockSearch = mock(Search.class);
-        HashMap<String, ArrayList<Integer>> fakeMap = new HashMap<String, ArrayList<Integer>>();
-        ArrayList<Integer> messi = new ArrayList<Integer>();
-        messi.add(100);
-        messi.add(200);
-        ArrayList<Integer> ronaldo = new ArrayList<Integer>();
-        ronaldo.add(80);
-        ronaldo.add(150);
-        ArrayList<Integer> neymar = new ArrayList<Integer>();
-        neymar.add(50);
-        neymar.add(80);
-        fakeMap.put("messi", messi);
-        fakeMap.put("ronaldo", ronaldo);
-        fakeMap.put("neymar", neymar);
 
-        when(mockSearch.returnAll()).thenReturn(fakeMap);
+        when(mockSearch.returnAll()).thenReturn(createFakeMap());
 
         HashMap<String, Integer> results = util.findTopScorer(mockSearch);
 
